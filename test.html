@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<title>成果発表</title>
+<link rel="stylesheet" type="text/css" href="test.css"/>
+<script type="text/javascript" src="js/oss/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="js/oss/jquery-ui.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+
+  // 画像の数
+  var imgs = 19;
+  var imgcount = 1;
+  var animeCount = 0;
+  var isNextSlide = true;
+  var isFirstAnimeSlide = true;
+  // 指定番号の画像に差し替える関数
+  function showimage() {
+  if (isNextSlide) {
+    $(".animeFigure").css("display","none");
+    imgcount ++;
+
+    if( imgcount > imgs ) {
+      imgcount = 1;
+    }
+    var imagename = "./" + imgcount + ".jpg";
+    document.getElementById('slideshow').src = imagename;
+  }
+
+
+   switch (imgcount) {
+     case 3:
+         if (!isFirstAnimeSlide) {
+           $("#p3_1").fadeIn(1500);
+           isFirstAnimeSlide = true;
+           isNextSlide = true;
+         } else {
+           isFirstAnimeSlide = false;
+           isNextSlide = false;
+        }
+       break;
+     case 7:
+        if (!isFirstAnimeSlide) {
+          $("#p7_1").fadeIn(1500);
+          isFirstAnimeSlide = true;
+          isNextSlide = true;
+        } else {
+          isFirstAnimeSlide = false;
+          isNextSlide = false;
+        }
+        break;
+      case 8:
+        if (isFirstAnimeSlide) {
+          isFirstAnimeSlide = false
+          isNextSlide = false
+          break;
+        }
+
+        if (!isNextSlide) {
+          animeCount ++
+          var animeID = "#p8_" + animeCount
+          $(animeID).fadeIn(1500)
+        }
+        if (animeCount >= 2) {
+          animeCount = 0
+          isNextSlide = true
+          isFirstAnimeSlide = true
+        }
+        break;
+      case 10:
+          if (isFirstAnimeSlide) {
+            isFirstAnimeSlide = false
+            isNextSlide = false
+            break;
+          }
+          if (!isNextSlide) {
+            animeCount ++
+            var animeID = "#p10_" + animeCount
+            $(animeID).fadeIn(1500)
+          }
+          if (animeCount >= 2) {
+            animeCount = 0
+            isNextSlide = true
+            isFirstAnimeSlide = true
+          }
+         break;
+      case 11:
+          if (isFirstAnimeSlide) {
+            isFirstAnimeSlide = false
+            isNextSlide = false
+            break;
+          }
+          if (!isNextSlide) {
+            animeCount ++
+            var animeID = "#p11_" + animeCount
+            $(animeID).fadeIn(1500)
+          }
+          if (animeCount >= 2) {
+            animeCount = 0
+            isNextSlide = true
+            isFirstAnimeSlide = true
+          }
+          break;
+      case 15:
+          if (isFirstAnimeSlide) {
+            isFirstAnimeSlide = false
+            isNextSlide = false
+            break;
+          }
+          if (!isNextSlide) {
+            animeCount ++
+            var animeID = "#p15_" + animeCount
+            $(animeID).fadeIn(1500)
+          }
+          if (animeCount >= 2) {
+            animeCount = 0
+            isNextSlide = true
+            isFirstAnimeSlide = true
+          }
+          break;
+      default:
+   }
+ }
+
+ $(function() {
+ 	$("＃slidelist").click(function () {
+ 		$(".dialog_slideNum").dialog({
+ 			modal : true,
+ 			dialogClass: "no-close",
+ 			resizable: false,
+ 			buttons: {
+ 				'移動する': function() {
+          $(this).dialog('close');
+          imgcount = $("#selectSlideNum").val();
+          var imagename = "./" + imgcount + ".jpg";
+          document.getElementById('slideshow').src = imagename;
+ 				},
+ 				'キャンセル': function () {
+ 					$(this).dialog('close');
+ 				}
+ 			},
+ 		});
+ 	});
+});
+</script>
+</head>
+<body>
+<div>
+  <img src="1.jpg" id="slideshow" onClick="showimage()">
+  <img src="P3_実装スキル.png" id="p3_1" class="animeFigure" onClick="showimage()">
+  <img src="P7_一言.png" id="p7_1" class="animeFigure" onClick="showimage()">
+  <img src="P8_フロー.png" id="p8_1" class="animeFigure" onClick="showimage()">
+  <img src="P8_結果.png" id="p8_2" class="animeFigure" onClick="showimage()">
+  <img src="P10_矢印.png" id="p10_1" class="animeFigure" onClick="showimage()">
+  <img src="P10_Windows.png" id="p10_2" class="animeFigure" onClick="showimage()">
+  <img src="P11_フロー.png" id="p11_1" class="animeFigure" onClick="showimage()">
+  <img src="P11_結果.png" id="p11_2" class="animeFigure" onClick="showimage()">
+  <img src="P15_フロー.png" id="p15_1" class="animeFigure" onClick="showimage()">
+  <img src="P15_結果.png" id="p15_2" class="animeFigure" onClick="showimage()">
+</div>
+<div class="dialog_slideNum" style="display: none">
+  <form>
+  <select id="selectSlideNum">
+    <option value="1">P0:表紙</option>
+    <option value="2">P1:携わった業務一覧携わった業務一覧</option>
+    <option value="3">P2:身に付けたこと</option>
+    <option value="4">P3:１つ目のプロジェクト</option>
+    <option value="5">P4:プロジェクト概要</option>
+    <option value="6">P5:１つ目のプロジェクトでのミス事例事例</option>
+    <option value="7">P6:言われた一言</option>
+    <option value="8">P7:１つ目のプロジェクトでの問題点</option>
+    <option value="9">P8:２つ目のプロジェクト</option>
+    <option value="10">P9:プロジェクト概要</option>
+    <option value="11">P10:２つ目のプロジェクトでの取り組み方</option>
+    <option value="12">P11:３つ目のプロジェクト</option>
+    <option value="13">P12:プロジェクト概要①</option>
+    <option value="14">P13:プロジェクト概要②</option>
+    <option value="15">P14:3つ目のプロジェクトで身に付けたこと</option>
+    <option value="16">P16:具体的な成果②</option>
+    <option value="17">P17:今後の課題</option>
+    <option value="18">P18:ご清聴ありがとうございました</option>
+  </select>
+  </form>
+</div>
+</body>
+<style>
+
+ .animeFigure {
+   display: none;
+   position: absolute;
+ }
+ img#slideshow {
+   height:100vh;width:100%;
+ }
+ img#slidelist {
+   height:5vh;width:5vh;
+   position: absolute;
+   bottom: 1vh;
+   left : 3%;
+ }
+
+ img#p3_1 {
+   top: 45vh;
+   left: 25%;
+ }
+ img#p7_1 {
+   top: 30vh;
+   left: 5%;
+ }
+
+ img#p8_1 {
+   width: 100%;
+　　height: 5vh;
+   top: 15vh;
+   left: 1%
+ }
+ img#p8_2 {
+   width: 55%;
+   height: 18vh;
+   bottom: 6vh;
+   left: 40%;
+ }
+ img#p10_1 {
+   top: 32vh;
+   left: 35%;
+ }
+ img#p10_2 {
+   top: 20vh;
+   left: 45%;
+ }
+
+ img#p11_1 {
+   width: 100%;
+　　height: 5vh;
+   top: 10vh;
+   left: 1%
+ }
+ img#p11_2 {
+   width: 55%;
+   height: 18vh;
+   bottom: 6vh;
+   left: 40%;
+ }
+
+ img#p15_1 {
+   width: 100%;
+　　height: 5vh;
+   top: 13vh;
+   left: 1%
+ }
+ img#p15_2 {
+   width: 55%;
+   height: 18vh;
+   bottom: 5vh;
+   left: 40%;
+ }
+
+ img#p16_1 {
+   width: 25%;
+　　height: 50vh;
+   top: 30vh;
+   left: 10%;
+ }
+ img#p16_2 {
+   width: 10%;
+   height: 25vh;
+   top: 42vh;
+   left: 40%;
+ }
+ img#p16_3 {
+   width: 25%;
+   height: 48vh;
+   top: 30vh;
+   left: 55%
+ }
+
+</style>
+</html>
